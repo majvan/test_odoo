@@ -1,0 +1,46 @@
+# Composer for the postgresql database
+
+version: '3.5'
+services:
+  odoo-db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+#      POSTGRES_DB=postgres
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+#      USER: odoo
+#      PASSWORD: odoo
+    volumes:
+      - odoo-data:/var/lib/postgresql/data
+      - odoo-socket:/var/run/postgresql
+    networks:
+      - postgres
+  pgadmin4:
+    image: dpage/pgadmin4
+    ports:
+      - "5433:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
+      # PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    networks:
+      - postgres
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  odoo-data:
+    driver: local
+  odoo-socket:
+    driver: local
+    driver_opts:
+      type: 'None'
+      o: 'bind'
+      device: '/var/run/postgresql'  # Create it exactly on the local machine here
+  pgadmin:
