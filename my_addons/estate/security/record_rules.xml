@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <record model="ir.module.category" id="base.module_category_sales">
+        <field name="description">Manage real estates</field>
+        <field name="sequence">8</field>
+    </record>
+
+    <record id="group_estate_user" model="res.groups">
+        <field name="name">Estate User</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="category_id" ref="base.module_category_sales"/>
+    </record>
+
+    <record id="group_estate_administrator" model="res.groups">
+        <field name="name">Estate Administrator</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="category_id" ref="base.module_category_sales"/>
+    </record>
+
+</data>
+<data>
+    <!-- Add users to be member of Real estate by default -->
+    <record id="base.default_user" model="res.users">
+        <field name="groups_id" eval="[(4,ref('estate.group_estate_user'))]"/>
+    </record>
+
+    <record model="ir.rule" id="estate_property_admin_record_rule">
+        <field name="name">See all estates</field>
+        <field name="model_id" ref="model_estate_property"/>
+        <field name="global" eval="False"/>
+        <field name="groups" eval="(4, ref('estate.group_estate_administrator'))"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+    </record>
+
+    <record model="ir.rule" id="estate_property_user_record_rule">
+        <field name="name">See only own estates</field>
+        <field name="model_id" ref="model_estate_property"/>
+        <field name="global" eval="False"/>
+        <field name="groups" eval="(4, ref('estate.group_estate_user'))"/>
+        <field name="domain_force">[('user_ids', 'in', user.id)]</field>
+    </record>
+</data>
+</odoo>

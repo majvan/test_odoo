@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="estate_property_offer_list_action" model="ir.actions.act_window">
+        <field name="name">Property Offers</field>
+        <field name="res_model">estate.property.offer</field>
+        <!-- <field name="domain">[('property_type_id','=', active_id)]</field> -->
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="estate_property_offer_view_form" model="ir.ui.view">
+        <field name="name">estate.property.offer.form</field>
+        <field name="model">estate.property.offer</field>
+        <field name="arch" type="xml">
+            <form string="Property Offer">
+                <group>
+                    <field name="price"/>
+                    <field name="partner_id"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="estate_property_offer_view_tree" model="ir.ui.view">
+        <field name="name">estate.property.offer.tree</field>
+        <field name="model">estate.property.offer</field>
+        <field name="arch" type="xml">
+            <tree string="Property Offers" editable="bottom" decoration-success="state == 'accepted'" decoration-primary="state == 'received'" decoration-danger="state == 'refused'" decoration-muted="state == 'sold'" decoration-bf="max_offer">
+                <field name="price"/>
+                <field name="price_per_area"/>
+                <field name="partner_id"/>
+                <field name="validity"/>
+                <field name="date_deadline"/>
+                <field name="property_type_id"/>
+                <button name="action_accept" type="object" title="Accept" icon="fa-check" attrs="{'invisible': [('state', '!=', False)]}"/>
+                <button name="action_refuse" type="object" title="Refuse" icon="fa-times" attrs="{'invisible': [('state', '!=', False)]}"/>
+                <field name="state" invisible="1"/>
+                <field name="max_offer" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

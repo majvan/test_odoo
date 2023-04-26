@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-
 {
     'name': 'Real estate',
     'version': '1.0',
@@ -13,9 +10,17 @@
     'depends': [
         'base',
         'base_setup',
+        'mail',
     ],
     'data': [
-        # 'security/crm_security.xml',
+        'security/ir.model.access.csv',  # Model declaration. It is important that the filename has dots.
+        'security/record_rules.xml',  # Model declaration. It is important that the filename has dots.
+        'views/estate_property_views.xml',  # Actions and views for properties
+        'views/estate_property_type_views.xml',  # Actions and views for property types
+        'views/estate_property_tags_views.xml',  # Actions and views for property tags
+        'views/estate_property_offer_views.xml',  # Actions and views for property offers
+        'views/res_user_views.xml',  # Views for users (extended the inherited view)
+        'views/estate_menus.xml',  # A menu items declaration linked to the actions
     ],
     'demo': [
     ],
