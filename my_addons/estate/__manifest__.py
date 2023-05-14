@@ -13,8 +13,8 @@
         'mail',
     ],
     'data': [
-        'security/ir.model.access.csv',  # Model declaration. It is important that the filename has dots.
-        'security/record_rules.xml',  # Model declaration. It is important that the filename has dots.
+        'security/record_rules.xml',  # Rules declaration. They need to be before model access as model access use record rules
+        'security/ir.model.access.csv',  # Model access declaration. It is important that the filename has dots.
         'views/estate_property_views.xml',  # Actions and views for properties
         'views/estate_property_type_views.xml',  # Actions and views for property types
         'views/estate_property_tags_views.xml',  # Actions and views for property tags
